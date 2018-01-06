@@ -1,0 +1,210 @@
+option optimize_for = LITE_RUNTIME; //因为使用MessageLite需要加此选项
+
+message MsgItemUnit{ //物品单元信息
+    optional int32 item_id = 1;			//物品ID
+    optional int32 item_type = 2;		//物品类型(子类型)
+    optional int32 item_num = 3;		//物品数量
+    optional int32 equip_key = 4;		//装备Key值
+}
+
+message MsgItemList{
+    repeated MsgItemUnit item_info = 1;
+}
+
+message MsgRoleInfo{ //角色基础信息
+    optional int32 head = 1;         //头像
+    optional int32 is_male = 2;      //性别 非0 表示男性 0 表示女性
+    optional int32 element = 3;      //五行 1表示金 2表示木 3表示水 4表示火 5表示土
+    optional string nick_name = 4;   //昵称
+    optional int32 gold = 5;         //人民币货币
+    optional int64 silver = 6;       //游戏内货币
+    optional int32 wakan = 7;        //灵力
+    optional int32 vitality = 8;     //体力
+    optional int32 energy = 9;       //精力
+    optional int32 vip_level = 10;   //VIP等级
+    optional int32 team_level = 11;  //战队等级
+    optional int32 now_story = 12;   //阅历数值
+	optional int32 skill_point = 13; //技能点
+    optional MsgEnergyTick energy_tick = 14;         //精力数据
+    optional MsgVitalityTick vitality_tick = 15;     //体力数据
+    optional MsgSkillPointTick skill_point_tick = 16;//技能点数据
+    optional MsgWakanTick wakan_tick = 17;//灵力数据
+    optional string sign_name = 18;  //签名
+    optional int32 level_story = 19; //战队等级升级所需要的阅历值
+    optional int32 lilian = 20;  //历练值
+    optional string fairyau_name = 21;  //角色所在仙盟
+    optional int32 fight = 22;  //战斗力
+	optional int32 world_earth = 23; //万物土
+    optional int32 total_fight = 24;  //综合战斗力
+}
+
+message MsgRoleChange{ //角色改变信息 这里只归集一些容易变化的属性值
+    optional int32 gold = 1;            //人民币货币
+    optional int64 silver = 2;          //游戏内货币
+    optional int32 wakan = 3;           //灵力
+    optional int32 vitality = 4;        //体力
+    optional int32 energy = 5;          //精力
+	optional int32 skill_point = 6;		//技能点
+    optional MsgEnergyTick energy_tick = 7;         //精力数据
+    optional MsgVitalityTick vitality_tick = 8;     //体力数据
+    optional MsgSkillPointTick skill_point_tick = 9;//技能点数据
+    optional MsgWakanTick wakan_tick = 10;//灵力数据
+    optional int32 lilian = 11; //历练值
+	optional int32 world_earth = 12; //万物土
+    optional int32 total_fight = 13; //综合战斗力
+}
+
+message MsgEnergyTick{
+    optional int32 restore_unit = 1;    //每次回复的单位
+    optional int32 restore_limit = 2;   //最终的回复上限
+    optional int32 time_interval = 3;   //回复的时间间隔(以秒为单位)
+    optional int32 last_update_time = 4;//上次更新的时刻
+}
+
+message MsgVitalityTick{
+    optional int32 restore_unit = 1;    //每次回复的单位
+    optional int32 restore_limit = 2;   //最终的回复上限
+    optional int32 time_interval = 3;   //回复的时间间隔(以秒为单位)
+    optional int32 last_update_time = 4;//上次更新的时刻
+}
+
+message MsgSkillPointTick{
+    optional int32 restore_unit = 1;    //每次回复的单位
+    optional int32 restore_limit = 2;   //最终的回复上限
+    optional int32 time_interval = 3;   //回复的时间间隔(以秒为单位)
+    optional int32 last_update_time = 4;//上次更新的时刻
+}
+
+message MsgWakanTick{
+    optional int32 restore_unit = 1;    //每次回复的单位
+    optional int32 restore_limit = 2;   //最终的回复上限
+    optional int32 time_interval = 3;   //回复的时间间隔(以秒为单位)
+    optional int32 last_update_time = 4;//上次更新的时刻
+    optional int32 right_add_ratio = 5; //领地特权额外加成灵力产出(千分比)
+    optional int32 trump_skill_add = 6; //法宝技能额外加成灵力产出速度
+}
+
+message MsgCardUnit{ //卡牌个体信息
+    optional int32 id = 1;          //卡牌配置ID
+    optional int32 status = 2;      //卡牌状态 0表示正常 1表示新获得 2表示可激活 3表示未激活
+    optional int32 exp = 3;         //卡牌当前经验值
+    optional int32 level = 4;       //卡牌当前等级值
+    optional int32 level_exp = 5;   //卡牌当前等级升级所需经验值
+    optional int32 fighting = 6;    //单个卡牌战斗力
+    optional int32 soul = 7;        //卡牌元神数量
+    optional int32 stage = 8;       //卡牌仙阶
+    repeated int32 equip_list = 9;  //装备列表 这里只是6个装备的Key(角色新生成的装备ID)
+    repeated MsgSkillUnit skill_list = 10;      //技能列表
+    optional MsgAttrList attr_list = 11;        //总的属性列表
+    optional int32 role_gid = 12;   //卡牌拥有者的角色GID
+    optional int32 next_stage_fighting = 13;    //卡牌下一仙阶战斗力
+    optional int32 next_level_fighting = 14;    //卡牌下一等级战斗力
+    optional int32 summoner_id = 15;            //召唤者卡牌配置ID
+    optional MsgAttrList next_attr_list = 16;   //下个仙阶附加属性列表
+    optional MsgAttrList next_total_attr_list = 17;   //下个仙阶总的属性列表
+    optional int32 element_level = 18;          //五行等级
+    optional int32 lucky_value = 19;            //五行幸运值
+    optional int32 lucky_limit = 20;            //五行幸运值上限
+}
+
+message MsgSkillUnit{
+    optional int32 id = 1;      //技能ID
+    optional int32 level = 2;   //技能等级
+}
+
+message MsgAttrUnit{
+    optional int32 attr_key = 1;        //属性键值
+    optional int32 attr_value = 2;      //属性数值
+}
+
+message MsgAttrList{
+    repeated MsgAttrUnit key_value = 1; //属性数组
+}
+
+message MsgMonsterUnit{
+	optional int32 id = 1;		//怪物ID
+	optional int32 hp = 2;		//血量
+	optional int32 index = 3;	//怪物位置(数组下标位置,开始值=0)	
+}
+
+message MsgTrumpUnit{ //法宝个体信息
+    optional int32 id = 1; //法宝ID
+    optional int32 is_active = 2; //是否已激活 0表示未激活 非0表示已激活
+    optional int32 grow_up = 3;   //成长值
+    optional int32 level = 4;     //等级值
+    optional int32 fragment = 5;  //碎片数量
+    optional int32 fighting = 6;  //单个法宝战斗力
+    optional MsgAttrList attr_list = 7; //总的属性列表
+    optional MsgAttrList next_attr_list = 8; //下个等级属性列表
+    repeated MsgSkillUnit skill_list = 9;      //技能列表
+}
+
+message MsgCharmUnit{ //符箓个体信息
+    optional int32 id = 1; //符箓ID
+}
+
+message MsgCommTeam{
+    repeated MsgCardUnit card_list = 1; //卡牌列表
+    repeated MsgTrumpUnit trump_list = 2; //法宝列表
+    repeated int32 rate_list = 3; //概率列表
+}
+
+message MsgCommSummon{
+    repeated MsgCardUnit mine_card_list = 1; //我方召唤卡牌列表
+    repeated MsgCardUnit enemy_card_list = 2; //敌方召唤卡牌列表
+}
+
+//enum EnumAttributeMacro
+//{
+//    ENM_ATTR_MIN                = 1,        //属性最小值
+//    ENM_ATTR_HP                 = 1,        //生命
+//    ENM_ATTR_HP_RECOVER         = 2,        //生命恢复
+//    ENM_ATTR_PHY_ATK            = 3,        //物理攻击
+//    ENM_ATTR_PHY_DEF            = 4,        //物理防御
+//    ENM_ATTR_MAG_ATK            = 5,        //法术攻击
+//    ENM_ATTR_MAG_DEF            = 6,        //法术防御
+//    ENM_ATTR_HIT                = 7,        //命中
+//    ENM_ATTR_DODGE              = 8,        //闪避
+//    ENM_ATTR_DOUBLE             = 9,        //暴击
+//    ENM_ATTR_ANTI_DOUBLE        = 10,       //暴击抗性
+//    ENM_ATTR_ATK_SPEED          = 11,       //攻击速度
+//    ENM_ATTR_PHY_ATK_ADD        = 12,       //物理攻击加成
+//    ENM_ATTR_PHY_DEF_ADD        = 13,       //物理防御加成
+//    ENM_ATTR_MAG_ATK_ADD        = 14,       //法术攻击加成
+//    ENM_ATTR_MAG_DEF_ADD        = 15,       //法术防御加成
+//    ENM_ATTR_PHY_HURT_ADD       = 16,       //物理伤害加成
+//    ENM_ATTR_MAG_HURT_ADD       = 17,       //法术伤害加成
+//    ENM_ATTR_PHY_HURT_SUB       = 18,       //受物理伤害减免
+//    ENM_ATTR_MAG_HURT_SUB       = 19,       //受法术伤害减免
+//    ENM_ATTR_PHY_ARMOR_DEFEAT   = 20,       //物理破甲
+//    ENM_ATTR_MAG_PENETRATE      = 21,       //法术穿透
+//    ENM_ATTR_SKILL_SPEED        = 22,       //技能加速
+//    ENM_ATTR_TREATMENT          = 23,       //治疗效果
+//    ENM_ATTR_BE_TREATMENT       = 24,       //被治疗效果
+//    ENM_ATTR_EXTRA_INJURY       = 25,       //额外伤害
+//    ENM_ATTR_IMMUNE_INJURY      = 26,       //减免伤害
+//    ENM_ATTR_METAL_HURT_ADD     = 27,       //金伤害加成
+//    ENM_ATTR_WOOD_HURT_ADD      = 28,       //木伤害加成
+//    ENM_ATTR_WATER_HURT_ADD     = 29,       //水伤害加成
+//    ENM_ATTR_FIRE_HURT_ADD      = 30,       //火伤害加成
+//    ENM_ATTR_EARTH_HURT_ADD     = 31,       //土伤害加成
+//    ENM_ATTR_METAL_HURT_SUB     = 32,       //金伤害减免
+//    ENM_ATTR_WOOD_HURT_SUB      = 33,       //木伤害减免
+//    ENM_ATTR_WATER_HURT_SUB     = 34,       //水伤害减免
+//    ENM_ATTR_FIRE_HURT_SUB      = 35,       //火伤害减免
+//    ENM_ATTR_EARTH_HURT_SUB     = 36,       //土伤害减免
+//    ENM_ATTR_ATTACK_RANGE       = 37,       //攻击距离
+//    ENM_ATTR_BLOOD_SUCKING      = 38,       //吸血等级
+//    ENM_ATTR_MOVE_SPEED         = 39,       //移动速度
+//    ENM_ATTR_DOUBLE_HURT_ADD    = 40,       //暴击伤害加成
+//    ENM_ATTR_TREATMENT_ADD      = 41,       //治疗效果提升
+//    ENM_ATTR_HURT_BACK          = 42,       //反伤
+//    ENM_ATTR_ANGRY_RECOVER      = 43,       //怒气回复
+//    ENM_ATTR_CARD_EXP_VALUE     = 44,       //卡牌经验(数值非比例)
+//    ENM_ATTR_SILVER_ADD_VAL     = 45,       //金钱掉落(数值非比例)
+
+//    ENM_ATTR_NOW_MAX            = 46,       //属性最大值 约定:此值等于最大的属性值+1 以便直接下标取值
+//};
+
+
+

@@ -1,0 +1,14 @@
+option optimize_for = LITE_RUNTIME; //因为使用MessageLite需要加此选项
+
+message MsgAnsNotice{
+    optional int32 gid = 1;					//角色gid
+	optional int32 id = 2;					//CS两端公告配置id 
+    repeated MsgNoticeUnit argu_list = 3;   //公告发送内容类型信息
+}
+
+message MsgNoticeUnit{
+    optional int32 type = 1; //参数类型 小于1000表示物品类型 1000表示字符类型
+	optional string str_list = 2;
+	optional int32 int_id = 3;
+}
+
